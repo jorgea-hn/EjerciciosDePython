@@ -54,31 +54,96 @@ print(calculadora())
 
 # Ejercicio 3
 # Escribir una función que reciba otra función y una lista, y devuelva otra lista con el resultado de aplicar la función dada a cada uno de los elementos de la lista.
+numeros = [2,3,4,5,6,7,8]
+def cuadrado(n):
+    return n**2
+
+
+def potencia(func,numeros):
+    elevado = []
+    for i in numeros:
+        elevado.append(func(i))
+    print(elevado)
+
+potencia(cuadrado,numeros)
+
 
 
 # Ejercicio 4
 # Escribir una función que reciba otra función booleana y una lista, y devuelva otra lista con los elementos de la lista que devuelvan True al aplicarles la función booleana.
+numeros = [2,0,4,0,6,0,8]
+def booleana(n):
+    return bool(n)
 
+
+def potencia(func,numeros):
+    booleanType = []
+    for i in numeros:
+        if func(i)==True:
+            booleanType.append(i)
+        
+    print(booleanType)
+
+potencia(booleana,numeros)
 
 # Ejercicio 5
 # Escribir una función que reciba una frase y devuelva un diccionario con las palabras que contiene y su longitud.
 
+diccionario = {}
+def contador_caracteres(frase):
+    fraseN = frase.split(" ")
+    longitud=0
+    for i in fraseN:
+        if fraseN.count(i)>1:
+            fraseN.remove(i)
+
+    for i in fraseN:
+        longitud = len(i)
+        diccionario[i]=longitud
+    print(diccionario)
+
+contador_caracteres("Hola mi nombre es jorge y me gusta comer y jugar y dibujar")
 
 # Ejercicio 6
 # Escribir una función reciba una lista de notas y devuelva la lista de calificaciones correspondientes a esas notas.
 
+conversion = {1:"Deficiente",2:"Insuficiente",3:"Acaptable",4:"Sobresaliente",5:"Excelente" }
+calificaciones = []
+def notas(notas):
+    for nota in notas:
+        calificaciones.append(conversion[nota])
+    print(calificaciones)
+notas([2,3,5,1,4,3,5])
 
 # Ejercicio 7
 # Escribir una función reciba un diccionario con las asignaturas y las notas de un alumno y devuelva otro diccionario con las asignaturas en mayúsculas y las calificaciones correspondientes a las notas.
+conversion = {1:"Deficiente",2:"Insuficiente",3:"Acaptable",4:"Sobresaliente",5:"Excelente" }
+calificaciones = {}
+def notas(notas):
+    for x, y in notas.items():
+        calificaciones[x.upper()]= conversion[y]
+    print(calificaciones)
 
+notas({"Matematicas":3,"Sociales":2,"Ingles":5,"Biologia":4, "Informatica":5})
 
 # Ejercicio 8
 # Escribir una función reciba un diccionario con las asignaturas y las notas de un alumno y devuelva otro diccionario con las asignaturas en mayúsculas y las calificaciones correspondientes a las notas aprobadas.
+conversion = {1:"Deficiente",2:"Insuficiente",3:"Acaptable",4:"Sobresaliente",5:"Excelente" }
+calificaciones = {}
+def notas(notas):
+    for x, y in notas.items():
+        if y>=3:
+            calificaciones[x.upper()]= conversion[y]
+    print(calificaciones)
 
+notas({"Matematicas":3,"Sociales":2,"Ingles":5,"Biologia":4, "Informatica":5})
 
 # Ejercicio 9
 # Escribir una función que calcule el módulo de un vector.
+def modulo(n1,n2):
+    return ((n1**2)+(n2**2))**(1/2)
 
+print(modulo(3,4))
 
 # Ejercicio 10
 # Una inmobiliaria de una ciudad maneja una lista de inmuebles como la siguiente:
@@ -93,5 +158,56 @@ print(calculadora())
 # Zona A: precio = (metros * 1000 + habitaciones * 5000 + garaje * 15000) * (1-antiguedad/100)
 # Zona B: precio = (metros * 1000 + habitaciones * 5000 + garaje * 15000) * (1-antiguedad/100) * 1.5
 
+inmuebles = [{'año': 2000, 'metros': 100, 'habitaciones': 3, 'garaje': True, 'zona': 'A'},
+{'año': 2012, 'metros': 60, 'habitaciones': 2, 'garaje': True, 'zona': 'B'},
+{'año': 1980, 'metros': 120, 'habitaciones': 4, 'garaje': False, 'zona': 'A'},
+{'año': 2005, 'metros': 75, 'habitaciones': 3, 'garaje': True, 'zona': 'B'},
+{'año': 2015, 'metros': 90, 'habitaciones': 2, 'garaje': False, 'zona': 'A'}]
+valor=2000000
+
+def busqueda(inmuebles,valor):
+    precio = 0
+    lista = []
+    for i in inmuebles:
+        if (i["zona"]=="A"):
+            precio = (i["metros"] * 1000 + i["habitaciones"] * 5000 + i["garaje"] * 15000) * (1-i["año"]/100)
+            i["precio"]=abs(precio)
+        elif (i["zona"]=="B"):
+            precio = (i["metros"] * 1000 + i["habitaciones"] * 5000 + i["garaje"] * 15000) * (1-i["año"]/100)*1.5
+            i["precio"]=abs(precio)
+    
+    for j in inmuebles:
+        if valor>=j["precio"]:
+            lista.append(j)
+    
+    print(lista)
+
+    
+busqueda(inmuebles,valor)
+
 # Ejercicio 11
 # Escribir una función que reciba una muestra de números y devuelva los valores atípicos, es decir, los valores cuya puntuación típica sea mayor que 3 o menor que -3. Nota: La puntuación típica de un valor se obtiene restando la media y dividiendo por la desviación típica de la muestra.
+
+def valoresAtipicos(*args):
+    valores=[]
+    suma = 0
+    desviacion = 0
+    longitud = len(args)
+    for i in args:
+        suma += i
+
+    media = suma/longitud
+
+    for i in args:
+        desviacion += (i-media)**2
+    
+    desviacionTipica = desviacion**(1/2)
+
+    for i in args:
+        valores.append((i-media)/desviacionTipica)
+
+    for i in valores:
+        if i>=3 or i<=-3:
+            print(i)
+
+valoresAtipicos(1,2,3,4,5,6,7,28,260,1998,98098896)

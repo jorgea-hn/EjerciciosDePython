@@ -9,5 +9,19 @@
 #         for m in a:
 #             for n in m:
 
-    
+numeros = [2,0,4,0,6,0,8]
+def booleana(n):
+    return bool(n)
+
+
+def potencia(func,numeros):
+    booleanType = []
+    for i in numeros:
+        if func(i)==True:
+            booleanType.append(i)
+        
+    print(booleanType)
+
+potencia(booleana,numeros)
+
 
